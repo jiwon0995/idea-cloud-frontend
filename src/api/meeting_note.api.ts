@@ -10,3 +10,7 @@ export const meetingNoteWriteApi = async (
 ): Promise<CommonResponse<string>> => {
   return await api.post(`${PREFIX_PATH}/meeting-notes`, { title, body, keywords }).then((res) => res.data);
 };
+
+export const meetingNoteListApi = async (page: number, size: number) => {
+  return await api.get(`${PREFIX_PATH}/meeting-notes?page=${page}&size=${size}`).then((res) => res.data);
+};

@@ -17,7 +17,6 @@ api.interceptors.request.use(
 
     let token;
     const getToken = localStorage.getItem("token");
-    console.log("getToken", getToken);
     if (getToken) {
       token = getToken;
     } else {
