@@ -14,3 +14,7 @@ export const meetingNoteWriteApi = async (
 export const meetingNoteListApi = async (page: number, size: number) => {
   return await api.get(`${PREFIX_PATH}/meeting-notes?page=${page}&size=${size}`).then((res) => res.data);
 };
+
+export const meetingNoteDetailApi = async (id: number) => {
+  return await api.get(`${PREFIX_PATH}/meeting-notes/${id}`).then((res) => res.data);
+};

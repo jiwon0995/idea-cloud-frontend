@@ -1,4 +1,4 @@
-import { IMeetingNoteListData } from "@/types/meeting_notes.type";
+import { IMeetingNoteListData, MeetingNoteItem } from "@/types/meeting_notes.type";
 
 export const selectMeetingNoteList = (data: IMeetingNoteListData) => {
   const { meetingNotes, totalPages, totalElements } = data;
@@ -17,5 +17,16 @@ export const selectMeetingNoteList = (data: IMeetingNoteListData) => {
     list: newList,
     totalPages: totalPages ?? 0,
     totalElements: totalElements ?? 0,
+  };
+};
+
+export const selectMeetingNoteDetail = (data: MeetingNoteItem) => {
+  return {
+    id: data.id,
+    title: data.title,
+    body: data.body,
+    created: data.created,
+    userId: data.userId,
+    keywords: data.keywords,
   };
 };
