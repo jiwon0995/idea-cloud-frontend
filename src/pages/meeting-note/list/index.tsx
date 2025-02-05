@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import MeetingNoteListCard from "@/components/meeting-note/MeetingNoteListCard";
 import CommonPagination from "@/components/common/CommonPagination";
@@ -34,9 +34,9 @@ export default function MeetingNoteListPage() {
       <div className="flex gap-4">
         {totalElements > 0 &&
           list.map((meetingNote) => (
-            <div key={meetingNote.id}>
+            <Link to={`/meeting-note/${meetingNote.id}`} key={meetingNote.id}>
               <MeetingNoteListCard meetingNote={meetingNote} />
-            </div>
+            </Link>
           ))}
         {isLoading && isPending && <div>Loading....</div>}
       </div>
