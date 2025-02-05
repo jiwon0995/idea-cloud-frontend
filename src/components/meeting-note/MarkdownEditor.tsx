@@ -1,9 +1,15 @@
-import React, { ReactNode, useCallback, useMemo } from "react";
+import React, { ReactNode, useCallback, useMemo, useState, useEffect } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-markdown";
 import { createEditor, Descendant, Text } from "slate";
 import { withHistory } from "slate-history";
 import { Editable, Slate, withReact } from "slate-react";
+
+function markdownToSlate(markdown: string) {
+  return markdown.split("\n").map((line) => {
+    return { type: "paragraph", children: [{ text: line }] };
+  });
+}
 
 const initialValue: Descendant[] = [
   {
@@ -17,9 +23,17 @@ const initialValue: Descendant[] = [
   },
 ];
 
-export default function MarkdownEditor({ setBody }: { setBody: any }) {
+export default function MarkdownEditor({ setBody, body }: { setBody: any; body: string }) {
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+
+  useEffect(() => {
+    const newValue = markdownToSlate(body);
+    setBody(body);
+    editor.children = newValue; // 🔥 에디터의 내부 상태도 동기화
+    editor.onChange();
+  }, []);
+
   const decorate = useCallback(([node, path]: any) => {
     const ranges: any = [];
 
